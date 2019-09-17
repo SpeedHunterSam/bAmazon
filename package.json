@@ -1,0 +1,29 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Node Storefront",
+  "main": "bAmazon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpeedHunterSam/bAmazon.git"
+  },
+  "keywords": [
+    "node",
+    "mySQL",
+    "javascript",
+    "inquirer"
+  ],
+  "author": "SpeedHunterSam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SpeedHunterSam/bAmazon/issues"
+  },
+  "homepage": "https://github.com/SpeedHunterSam/bAmazon#readme",
+  "dependencies": {
+    "inquirer": "^7.0.0",
+    "mysql": "^2.17.1"
+  }
+}

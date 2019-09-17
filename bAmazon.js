@@ -15,14 +15,16 @@ const connection = mysql.createConnection({
     database: "bamazon"
   });
 
-  
-  
+
   connection.connect(function(err) {
     if (err) throw err;
     orderProduct();
   });
-  
+
+
+
   function orderProduct() {
+  console.log("App is running");
     inquirer
       .prompt({
         name: "action",
@@ -50,4 +52,7 @@ const connection = mysql.createConnection({
         }
       });
   }
+
+
+  
   
