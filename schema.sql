@@ -14,7 +14,7 @@ CREATE TABLE products
 );
 
 
-
+/*insert initial values into table */
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES 
 ("Black Panther Action Figure", "Toys", 7.99, 4),
@@ -28,12 +28,12 @@ VALUES
 ("Docking Station", "Computers", 89.33, 4),
 ("Dell XPS 15", "Computers", 2199.00, 4);
 
-
+/* see entire table */
 SELECT * FROM products;
 
 
 /* Show a row by item_id */
 SELECT * FROM products WHERE item_id = '${itemID}';
 
-
+/* using string templating to change value of row item in node */
 UPDATE products SET stock_quantity = stock_quantity - ${quantity};

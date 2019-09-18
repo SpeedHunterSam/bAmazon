@@ -114,7 +114,7 @@ function orderProduct() {
 
 }
 
-
+//this function changes reduces inventory based on user purchase quantity
 function purchaseItem(itemID, quantity) {
 
 
