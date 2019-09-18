@@ -36,4 +36,5 @@ SELECT * FROM products;
 SELECT * FROM products WHERE item_id = '${itemID}';
 
 /* using string templating to change value of row item in node */
-UPDATE products SET stock_quantity = stock_quantity - ${quantity};
+  UPDATE products SET stock_quantity = stock_quantity - ${quantity}
+    WHERE item_id = '${itemID}';

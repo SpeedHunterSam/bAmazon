@@ -79,29 +79,22 @@ function orderProduct() {
 
 }
 
-function verifyAvailability(itemID, quantity){
+function verifyAvailability(itemID, quantity) {
 
     const query = `SELECT * FROM products WHERE item_id = '${itemID}'`;
 
     connection.query(query, function (err, res) {
 
-        if (res[0].stock_quantity < quantity)
-        {
-        console.log("\n*********************************\nInsufficient Quantity. Try again.\n*********************************\n");
-        showInventory(); //run show inventory function to let user try again.
-        }else{
+        if (res[0].stock_quantity < quantity) {
+            console.log("\n*********************************\nInsufficient Quantity. Try again.\n*********************************\n");
+            showInventory(); //run show inventory function to let user try again.
+        } else {
             purchaseItem(itemID, quantity);  //else continue with purchase.
         }
 
-
-
         //console.log(res);
 
-        
-
     })
-
-
 
 }
 
@@ -121,31 +114,28 @@ function purchaseItem(itemID, quantity) {
         if (err) throw err;
         console.log("\n*****************\nItem Purchased\n*****************\n");
         calcTotalPurchase(itemID, quantity);
-        
+
     });
 
 }
 
 //function that calculates total amount spent
-function calcTotalPurchase(itemID, quantity){
+function calcTotalPurchase(itemID, quantity) {
 
     const query = `SELECT * FROM products`;
 
     connection.query(query, function (err, res) {
 
-        const amountSpent = res[itemID-1].price * quantity;
-        
-        console.log(res[itemID-1].product_name + " Quantity: " + quantity + " Total Amount Spent: " + amountSpent + "\n\n");
+        const amountSpent = res[itemID - 1].price * quantity;
+
+        console.log(res[itemID - 1].product_name + " | Quantity: " + quantity + " | Total Amount Spent: " + amountSpent + "\n\n");
         //console.log(res);
 
         ShopOrExit();
 
     })
 
-
 }
-
-
 
 
 //***** Make another purchase or quit app function *********
