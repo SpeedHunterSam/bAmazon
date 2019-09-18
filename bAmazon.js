@@ -31,7 +31,7 @@ function showInventory() {
     connection.query(query, function (err, res) {
         for (let i = 0; i < res.length; i++) {
             //store table of items in a string
-                outputString +=
+            outputString +=
                 "\nItem ID: " +
                 res[i].item_id +
                 " || Name: " +
@@ -53,7 +53,7 @@ function showInventory() {
 
 // function that asks user what they would like to order;
 function orderProduct() {
-    console.log("\nAll in stock inventory shown above. Please make a selection.\n");
+    console.log("\nStore items shown above. Please make a selection.\n");
     inquirer
         .prompt([
 
@@ -73,9 +73,34 @@ function orderProduct() {
 
             console.log("Getting item ID #" + answer.itemID + " | Quantity: " + answer.quantity);
 
-            purchaseItem(answer.itemID, answer.quantity);
+            verifyAvailability(answer.itemID, answer.quantity);
 
         });
+
+}
+
+function verifyAvailability(itemID, quantity){
+
+    const query = `SELECT * FROM products WHERE item_id = '${itemID}'`;
+
+    connection.query(query, function (err, res) {
+
+        if (res[0].stock_quantity < quantity)
+        {
+        console.log("\n*********************************\nInsufficient Quantity. Try again.\n*********************************\n");
+        showInventory(); //run show inventory function to let user try again.
+        }else{
+            purchaseItem(itemID, quantity);  //else continue with purchase.
+        }
+
+
+
+        //console.log(res);
+
+        
+
+    })
+
 
 
 }
@@ -95,11 +120,31 @@ function purchaseItem(itemID, quantity) {
     connection.query(query, function (err, res) {
         if (err) throw err;
         console.log("\n*****************\nItem Purchased\n*****************\n");
-        ShopOrExit();
-
+        calcTotalPurchase(itemID, quantity);
+        
     });
 
 }
+
+//function that calculates total amount spent
+function calcTotalPurchase(itemID, quantity){
+
+    const query = `SELECT * FROM products`;
+
+    connection.query(query, function (err, res) {
+
+        const amountSpent = res[itemID-1].price * quantity;
+        
+        console.log(res[itemID-1].product_name + " Quantity: " + quantity + " Total Amount Spent: " + amountSpent + "\n\n");
+        //console.log(res);
+
+        ShopOrExit();
+
+    })
+
+
+}
+
 
 
 
@@ -107,33 +152,33 @@ function purchaseItem(itemID, quantity) {
 
 function ShopOrExit() {
     console.log("App is running");
-      inquirer
+    inquirer
         .prompt({
-          name: "action",
-          type: "list",
-          message: "What would you like to do?",
-          choices: [
-            "Show Inventory",
-            "Place Order",
-            "exit"
-          ]
+            name: "action",
+            type: "list",
+            message: "What would you like to do?",
+            choices: [
+                "Show Inventory",
+                "Place Order",
+                "exit"
+            ]
         })
-        .then(function(answer) {
-          switch (answer.action) {
-          case "Show Inventory":
-            showInventory();
-            break;
-    
-          case "Place Order":
-            orderProduct();
-            break;
-    
-          case "exit":
-            connection.end();
-            break;
-          }
+        .then(function (answer) {
+            switch (answer.action) {
+                case "Show Inventory":
+                    showInventory();
+                    break;
+
+                case "Place Order":
+                    orderProduct();
+                    break;
+
+                case "exit":
+                    connection.end();
+                    break;
+            }
         });
-    
- }
+
+}
 
 //*******************************************
