@@ -17,45 +17,8 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    startApp();
+    showInventory();
 });
-
-//***** Temp Code to easily navigate different functions*********
-
-function startApp() {
-    console.log("App is running");
-      inquirer
-        .prompt({
-          name: "action",
-          type: "list",
-          message: "What would you like to do?",
-          choices: [
-            "Show Inventory",
-            "Place Order",
-            "exit"
-          ]
-        })
-        .then(function(answer) {
-          switch (answer.action) {
-          case "Show Inventory":
-            showInventory();
-            break;
-    
-          case "Place Order":
-            orderProduct();
-            break;
-    
-          case "exit":
-            connection.end();
-            break;
-          }
-        });
-    
- }
-
-//*******************************************
-
-
 
 
 //this function displays the entire inventory list to the console so that the user can make a selection from the screen
@@ -63,12 +26,12 @@ function startApp() {
 function showInventory() {
 
     const query = `SELECT * FROM products`;
-
+    let outputString = "";
 
     connection.query(query, function (err, res) {
-        if (err) throw err;
         for (let i = 0; i < res.length; i++) {
-            console.log(
+            //store table of items in a string
+                outputString +=
                 "\nItem ID: " +
                 res[i].item_id +
                 " || Name: " +
@@ -76,24 +39,27 @@ function showInventory() {
                 " || Price: " +
                 res[i].price +
                 " || Quantity: " +
-                res[i].stock_quantity
-            );
-
+                res[i].stock_quantity;
         }
+
+        //display table of items from stored string
+        console.log(outputString);
+        orderProduct();  //ask the user what they'd like to order
+
     });
-    connection.end();
+
 }
 
 
 // function that asks user what they would like to order;
 function orderProduct() {
-    console.log("App is running");
+    console.log("\nAll in stock inventory shown above. Please make a selection.\n");
     inquirer
         .prompt([
 
             {
                 type: "input",
-                message: "What is the item ID?",
+                message: "Please enter the Item ID for the item that you want to purchase: ",
                 name: "itemID"
             },
             {
@@ -128,8 +94,46 @@ function purchaseItem(itemID, quantity) {
 
     connection.query(query, function (err, res) {
         if (err) throw err;
-        console.log("Item Purchased");
+        console.log("\n*****************\nItem Purchased\n*****************\n");
+        ShopOrExit();
 
     });
 
 }
+
+
+
+//***** Make another purchase or quit app function *********
+
+function ShopOrExit() {
+    console.log("App is running");
+      inquirer
+        .prompt({
+          name: "action",
+          type: "list",
+          message: "What would you like to do?",
+          choices: [
+            "Show Inventory",
+            "Place Order",
+            "exit"
+          ]
+        })
+        .then(function(answer) {
+          switch (answer.action) {
+          case "Show Inventory":
+            showInventory();
+            break;
+    
+          case "Place Order":
+            orderProduct();
+            break;
+    
+          case "exit":
+            connection.end();
+            break;
+          }
+        });
+    
+ }
+
+//*******************************************
