@@ -13,7 +13,7 @@ CREATE TABLE products
     
 );
 
-SELECT * FROM products;
+
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES 
@@ -27,3 +27,13 @@ VALUES
 ("Wireless Keyboard", "Computers", 21.74, 4),
 ("Docking Station", "Computers", 89.33, 4),
 ("Dell XPS 15", "Computers", 2199.00, 4);
+
+
+SELECT * FROM products;
+
+
+/* Show a row by item_id */
+SELECT * FROM products WHERE item_id = '${itemID}';
+
+
+UPDATE products SET stock_quantity = stock_quantity - ${quantity};
