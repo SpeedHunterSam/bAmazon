@@ -79,6 +79,8 @@ function orderProduct() {
 
 }
 
+//this function verifies if there sufficient quantity to meet the customers order
+
 function verifyAvailability(itemID, quantity) {
 
     const query = `SELECT * FROM products WHERE item_id = '${itemID}'`;
