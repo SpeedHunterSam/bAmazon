@@ -2,7 +2,7 @@
 # bAmazon
 ## ...bBest Buy?, bTarget?, bNorthernTool?, b_A_Retailer!</h2>
 
-In this activity, I created a storefront with mySQL and node.js. The app takes in orders from customers and deplete stock from the store's inventory.
+In this activity, I created a storefront with mySQL and node.js. The app takes in orders from customers and depletes stock from the store's inventory.
 
 *Click Image to see LIVE DEMO*
 
