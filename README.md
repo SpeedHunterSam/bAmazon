@@ -4,10 +4,11 @@
 
 In this activity, I created a storefront with mySQL and node.js. The app takes in orders from customers and deplete stock from the store's inventory.
 
-
+*Click Image to see LIVE DEMO*
 
 [![Watch the video](https://img.youtube.com/vi/6Xw9tv5nCpo/maxresdefault.jpg)](https://youtu.be/6Xw9tv5nCpo)
 
+https://youtu.be/6Xw9tv5nCpo
 
 **This app is a CLI node app.**  
 
